@@ -2,37 +2,172 @@ import java.util.Scanner;
 import static java.lang.System.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class Game{
-    //public ArrayList<Card> deck;
+    
     public static void main(String[] args) {
         out.println("Welcome to Poker");
         Scanner scanner = new Scanner(System.in);
-        
+        Player player;
         out.println("You will only be able to play against the computer right now!");
         out.println("Have you played before? (y/n)");
         String input = scanner.nextLine();
         if(input.equals("y")){
-            out.println("Great! Let's get started!");
+            out.println("Great! Do you have a save file! (y/n)");
+            input = scanner.nextLine();
+            if(input.equals("y")){
+                out.println("give me your username");
+                String username = scanner.nextLine();
+                player = loadGame(username);
+
+            }
+            else{
+                out.println("No problem! Let's get started!");
+                out.println("What is your name?");
+                String name = scanner.nextLine();
+                player = new Player(name);
+            }
         } else{
             out.println("No problem! Let's get started!");
+            out.println("What is your name?");
+            String name = scanner.nextLine();
+            player = new Player(name);
+        }
+        
+        out.println("Do you know the rules of poker? (y/n)");
+        input = scanner.nextLine();
+        if(input.equals("y")){
+            out.println("great!");
+        }
+        else{
+            rules();
+        }
+        out.println("After every game you may review the rules, stats, or save the game, or quit the game.");
+        out.println("We will not save for you, so please save every now and then.");
+        while(true){
+            
+            out.println("type save to save the game, type rules to review the rules, type stats to see your stats, type quit to quit the game, or type play to play.");
+            input = scanner.nextLine();
+            if(input.equals("save")){
+                saveGame(player);
+                out.println("Game saved!");
+            }
+            else if(input.equals("rules")){
+                rules();
+            }
+            else if(input.equals("stats")){
+                out.println("Your name is: "+player.getname());
+                out.println("You have: "+player.getChips()+" chips");
+                out.println("You have won: "+player.getWins()+" games");
+                out.println("You have lost: "+player.getLosses()+" games");
+                out.println("You have tied: "+player.getTies()+" games");
+                out.println("You have restarted: "+player.getRestarts()+" times");
+            }
+            else if(input.equals("quit")){
+                out.println("Thanks for playing!");
+                break;
+            }
+            else if(input.equals("play")){
+                play(player);
+            }
+            else{
+                out.println("Invalid input! Please try again.");
+            }
         }
 
     }
-    /**public static void shuffle(){
-        Random random = new Random();
-        deck = new ArrayList<Card>();
+    //saving the Game
+    public static void saveGame(Player player){
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(player.getname()+".txt"));
+            writer.write(player.getname());
+            writer.newLine();
+            writer.write(player.getChips().toString());
+            writer.newLine();
+            writer.write(player.getWins()+"");
+            writer.newLine();
+            writer.write(player.getLosses()+"");
+            writer.newLine();
+            writer.write(player.getTies()+"");
+            writer.newLine();
+            writer.write(player.getRestarts()+"");
+            writer.close();
+        } catch (IOException e) {
+            out.println("Error saving game: " + e.getMessage());
+        }
+    }
+
+    //loading the game
+    public static Player loadGame(String username){
+        try {
+            File file = new File(username+".txt");
+            Scanner scanner = new Scanner(file);
+            String name = scanner.nextLine();
+            String chips = scanner.nextLine();
+            long wins = Long.parseLong(scanner.nextLine());
+            long losses = Long.parseLong(scanner.nextLine());
+            long ties = Long.parseLong(scanner.nextLine());
+            int restarts = Integer.parseInt(scanner.nextLine());
+            out.println("Welcome back " + name + "!");
+            scanner.close();
+            return new Player(name, chips, wins, losses, ties, restarts);
+
+        } catch (FileNotFoundException e) {
+            out.println("Error loading game: " + e.getMessage());
+            out.println("please restart the game and create a new account.");
+            out.println("If you have an account, please make sure the file is in the same directory as the game.");
+            throw new Error("File not found: " + username + ".txt");
+        }
+        
+    }
+    //rules
+    public static void rules(){
+        out.println("Don't worry! I will explain the rules to you!");
+            out.println("We will be playing five card poker.");
+            out.println("You will be dealt five cards and you will have to make the best hand possible.");
+            out.println("You will be playing against the computer.");
+            out.println("The computer will also be dealt five cards.");
+            out.println("You will be able to see three of the computer's cards for decsion making purposes.");
+            out.println("Before being dealt the cards, you will put in 50 chips to the pot.");
+            out.println("we will have a two intervals of betting.");
+            out.println("During which you will be able to bet, raise, call, or fold.");
+            out.println("The computer will also be able to bet, raise, call, or fold.");
+            out.println("The winner will be the one with the best hand.");
+            out.println("Winning gives you the pot and losing removes the chips form your account.");
+            out.println("You will forced to restart if you run out of chips.");
+            out.println("You can bet more than you have in your account, but you will be forced to restart if you lose.");
+            out.println("If you fold and bet more chips than you have, you will be forced to restart.");
+    }
+
+
+    //shuffling the deck
+    public static ArrayList<Card> shuffle(){
+        ArrayList<Card> deck = new ArrayList<Card>();
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        for (String suit : suits) {
-            for (int i = 1; i <= 13; i++) {
+        for(String suit : suits){
+            for(int i = 1; i <= 13; i++){
                 deck.add(new Card(suit, i));
             }
         }
-        for (int i = 0; i < deck.size(); i++) {
-            int randomIndexToSwap = random.nextInt(deck.size());
-            Card tempCard = deck.get(i);
-            deck.set(i, deck.get(randomIndexToSwap));
-            deck.set(randomIndexToSwap, tempCard);
+        Random rand = new Random();
+        for(int i = 0; i < deck.size(); i++){
+            int j = rand.nextInt(deck.size());
+            Card temp = deck.get(i);
+            deck.set(i, deck.get(j));
+            deck.set(j, temp);
+        }
+        return deck;
+    }
 
-        }   
-    }**/
+    //playing the game
+    public static void play(Player player){
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Card> deck = shuffle();
+        
+    }
+ 
 }
