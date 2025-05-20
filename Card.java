@@ -29,5 +29,7 @@ public class Card {
     public String getName() {
         return name;
     }
-    
+    public String toString() {
+        return name + " of " + suit;
+    }
 }

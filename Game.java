@@ -44,6 +44,7 @@ public class Game{
             out.println("great!");
         }
         else{
+            out.println("Don't worry! I will explain the rules to you!");
             rules();
         }
         out.println("After every game you may review the rules, stats, or save the game, or quit the game.");
@@ -77,6 +78,7 @@ public class Game{
             else{
                 out.println("Invalid input! Please try again.");
             }
+            dealy(2000);
         }
 
     }
@@ -126,21 +128,26 @@ public class Game{
     }
     //rules
     public static void rules(){
-        out.println("Don't worry! I will explain the rules to you!");
+
             out.println("We will be playing five card poker.");
             out.println("You will be dealt five cards and you will have to make the best hand possible.");
             out.println("You will be playing against the computer.");
             out.println("The computer will also be dealt five cards.");
-            out.println("You will be able to see three of the computer's cards for decsion making purposes.");
+            delay(4000);
+            out.println("You will be able to see two of the computer's cards for decsion making purposes.");
             out.println("Before being dealt the cards, you will put in 50 chips to the pot.");
             out.println("we will have a two intervals of betting.");
+            delay(4000);
             out.println("During which you will be able to bet, raise, call, or fold.");
             out.println("The computer will also be able to bet, raise, call, or fold.");
+            delay(4000);
             out.println("The winner will be the one with the best hand.");
             out.println("Winning gives you the pot and losing removes the chips form your account.");
             out.println("You will forced to restart if you run out of chips.");
+            delay(4000);
             out.println("You can bet more than you have in your account, but you will be forced to restart if you lose.");
             out.println("If you fold and bet more chips than you have, you will be forced to restart.");
+            delay(4000);
     }
 
 
@@ -167,7 +174,50 @@ public class Game{
     public static void play(Player player){
         Scanner scanner = new Scanner(System.in);
         ArrayList<Card> deck = shuffle();
+        int pot = 100;
+        int playerBet = 50;
+        out.println("50 chips have been take from your account.");
+        out.println("100 chips are in the pot.");
+        out.println("You have " + player.getChips()-playerBet + " chips left.");
+        out.println("Dealing cards...");
+        delay(2000);
+        ArrayList<Card> playerHand = new ArrayList<Card>();
+        ArrayList<Card> computerHand = new ArrayList<Card>();
+        for(int i = 0; i < 5; i++){
+            playerHand.add(deck.remove(0));
+            computerHand.add(deck.remove(0));
+        }
+        out.println("Your hand: ");
+        for(Card card : playerHand){
+            out.println(card);
+        }
+        delay(2000);
+        out.println("2 of the Computer's cards: ");
+        for(int i = 0; i < 2; i++){
+            out.println(computerHand.get(i));
+        }
+        delay(2000);
+        while(true){
+            out.println("Do you have any cards of which you would like to redraw ")
+        }
         
+    }
+
+    //delays game
+    public static void delay(int milliseconds){
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            out.println("Error: " + e.getMessage());
+        }
+
+        //figuring out hands (returns a numerical value based on hand)
+        public static int hand(ArrayList<Card> = ){
+            // Evaluate the player's hand and return a numerical value based on the hand
+            // Implement the logic to determine the hand strength (e.g., pair, two pair, three of a kind, straight, flush, full house, etc.)
+            for(int i = 0; i++)
+            // Return a numerical value representing the strength of the hand
+        }
     }
  
 }
