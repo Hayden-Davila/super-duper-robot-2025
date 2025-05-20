@@ -1,24 +1,25 @@
 import java.util.Scanner;
-import static java.lang.System.out;
+import static java.lang.System.*;
 import java.util.ArrayList;
 import java.util.Random;
 public class Game{
-    ArrayList<Card> deck
+    //public ArrayList<Card> deck;
     public static void main(String[] args) {
-        println("Welcome to Poker");
+        out.println("Welcome to Poker");
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
-        println("You will only be able to play against the computer right now!");
-        println("Have you played before? (y/n)");
+        
+        out.println("You will only be able to play against the computer right now!");
+        out.println("Have you played before? (y/n)");
         String input = scanner.nextLine();
         if(input.equals("y")){
-            println("Great! Let's get started!");
+            out.println("Great! Let's get started!");
         } else{
-            println("No problem! Let's get started!");
+            out.println("No problem! Let's get started!");
         }
 
     }
-    public static void shuffle(){
+    /**public static void shuffle(){
+        Random random = new Random();
         deck = new ArrayList<Card>();
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
         for (String suit : suits) {
@@ -33,5 +34,5 @@ public class Game{
             deck.set(randomIndexToSwap, tempCard);
 
         }   
-    }
+    }**/
 }
