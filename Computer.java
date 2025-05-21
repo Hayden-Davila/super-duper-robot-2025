@@ -6,7 +6,7 @@ public class Computer {
 
         
         long computerScore = evaluateHand(computerHand);
-
+        Random rand = new Random();
         if(computerScore == Long.MAX_VALUE){//Royal Flush
             return new int[]{4, 50000, -1 , -1, -1};
         }
@@ -37,7 +37,7 @@ public class Computer {
             return new int[]{3, 0, (int)(cardNum), -1, -1};
         }
         if(computerScore >= 2 && round == 1){//High card, round 2 fold
-            return new int[]{2,0,-1,-1,-1};
+            return new int[]{rand.nextInt(2),0,-1,-1,-1};
         }
         //High card, round 1 no fold
         return new int[]{3, 0, 0, 1, 2};

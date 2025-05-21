@@ -345,15 +345,13 @@ public class Game{
         delay(2000);
         long playerHandValue = Computer.evaluateHand(playerHand);
         long computerHandValue = Computer.evaluateHand(computerHand);
-        //Debug
-        out.println("Your hand value: " + playerHandValue);
-        out.println("Computer's hand value: " + computerHandValue);
         if(playerHandValue > computerHandValue){
             out.println("You win the pot!");
             player.addChips(pot-playerBet);
             player.addWins();
         }
         else if(playerHandValue < computerHandValue){
+            out.println("You lose the pot.");
             player.addLosses();
             player.subtractChips(playerBet);
         }
