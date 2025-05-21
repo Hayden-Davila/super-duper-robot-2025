@@ -46,11 +46,11 @@ public class Player {
         return restarts;
     }
 
-    public void addChips(long chips){
-        this.chips = this.chips.add(new BigInteger(chips+""));
+    public void addChips(long c){
+        this.chips = this.chips.add(new BigInteger(c+""));
     }
-    public void subtractChips(long chips){
-        this.chips = this.chips.subtract(new BigInteger(chips+""));
+    public void subtractChips(long c){
+        this.chips = this.chips.subtract(new BigInteger(c+""));
         if(this.chips.compareTo(BigInteger.ZERO) < 0){
             restarts();
         }
