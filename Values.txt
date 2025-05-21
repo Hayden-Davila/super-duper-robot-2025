@@ -1,0 +1,10 @@
+2-14 High Card (2 -14)
+15-27 Pairs (15 - 27)
+31 - 53 two pairs (litteraly just adding pair values. Can lead to weird ties but is the only time solution to my problem)
+45 - 81 three Kind (pair value * 3)
+120 - 240,240 Straight (120 - 240240 with 1680 being subtracted by 1560 to get 120)
+//240,241 Flush (Nothing special, all flush that are not also straights will be held the same.)
+//240,301 - 240,348 Full House (three of a kind + pair + 240241)
+//4,100,625 - 43,046,721 Four of a kind (three kind to the power of four)
+//57,657,840 - 115,430,995,680 Straight flush (Flush * straight * 2)
+//Long.MAX_VALUE Royal flush

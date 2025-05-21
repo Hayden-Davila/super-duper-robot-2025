@@ -1,11 +1,12 @@
-public class Card {
+
+public class Card implements Comparable<Card>{
     private String suit;
     private int value;
     private String name;
 
     public Card(String suit, int value) {
         this.suit = suit;
-        if(value == 1){
+        if(value == 14){
             this.name = "Ace";
         } else if(value == 11){
             this.name = "Jack";
@@ -29,5 +30,10 @@ public class Card {
     public String getName() {
         return name;
     }
-    
+    public int compareTo(Card other){
+        return Integer.compare(this.value, other.value);
+    }
+    public String toString(){
+        return name + " of " + suit;
+    }
 }
