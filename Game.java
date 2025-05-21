@@ -79,9 +79,11 @@ public class Game{
             else{
                 out.println("Invalid input! Please try again.");
             }
+
             delay(2000);
             out.println("\n\n\n");
             delay(2000);
+
         }
         
 
@@ -144,6 +146,7 @@ public class Game{
             delay(4000);
             out.println("During which you will be able to raise, call, or fold.");
             out.println("The computer will also be able to raise, call, or fold.");
+
             delay(4000);
             out.println("The winner will be the one with the best hand.");
             out.println("Winning gives you the pot and losing removes the chips form your account.");
@@ -152,10 +155,12 @@ public class Game{
             out.println("You can bet more than you have in your account, but you will be forced to restart if you lose.");
             out.println("If you fold and bet more chips than you have, you will be forced to restart.");
             delay(4000);
+
             out.println("The hands have numerical rankings used for comparisons.");
             out.println("Due to my inability to implement every possible hand for two pairs, there will be occasions where wins and ties may occur to a player with a lower hand.");
             out.println("This is a result of the math I used to calculate the hands.");
             delay(4000);
+
     }
 
 
@@ -184,10 +189,12 @@ public class Game{
         ArrayList<Card> deck = shuffle();
         int pot = 100;
         int playerBet = 50;
+
         int round = 0;
         out.println("50 chips have been take from your account.");
         out.println("100 chips are in the pot.");
         out.println("You have " + player.getChips().subtract(new BigInteger(playerBet+"")) + " chips left.");
+
         out.println("Dealing cards...");
         delay(2000);
         ArrayList<Card> playerHand = new ArrayList<Card>();
@@ -196,6 +203,7 @@ public class Game{
             playerHand.add(deck.remove(0));
             computerHand.add(deck.remove(0));
         }
+
         while(true){
             out.println("Your hand: ");
             for(Card card : playerHand){
@@ -227,6 +235,7 @@ public class Game{
                     }
                     }
             }
+
         
         while(playerHand.size()<5){
             playerHand.add(deck.remove(0));
@@ -368,4 +377,3 @@ public class Game{
 
     }
 }
- 

@@ -30,10 +30,11 @@ public class Card implements Comparable<Card>{
     public String getName() {
         return name;
     }
+
     public int compareTo(Card other){
         return Integer.compare(this.value, other.value);
     }
-    public String toString(){
+    public String toString() {
         return name + " of " + suit;
     }
 }
